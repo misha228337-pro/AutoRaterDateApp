@@ -4,7 +4,7 @@
 
 # Настройки временных интервалов (в секундах)
 MIN_RATING_INTERVAL = 5.0
-MAX_RATING_INTERVAL = 10.0
+MAX_RATING_INTERVAL = 7.0
 
 # Настройки оценки
 HIGH_RATING_MIN = 6
