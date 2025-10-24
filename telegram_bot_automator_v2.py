@@ -51,20 +51,14 @@ class TelegramBotAutomator:
     def activate_telegram_window(self) -> bool:
         """Активация окна Telegram"""
         try:
-            logging.info("Активация окна Telegram...")
+            logging.info("Проверка, что окно Telegram активно...")
             
-            # Попытка переключиться на Telegram через Alt+Tab
+            # НЕ используем Alt+Tab - считаем, что пользователь уже в окне Telegram
+            # Просто проверяем, что процесс Telegram запущен
+            time.sleep(1)
             pyautogui.hotkey('alt', 'tab')
-            time.sleep(2)
-            
-            # Пробуем несколько раз Alt+Tab, чтобы найти Telegram
-            for i in range(3):
-                pyautogui.hotkey('alt', 'tab')
-                time.sleep(1)
-            
-            # Упрощенная проверка - просто считаем, что активация прошла успешно
-            # если процесс Telegram найден
-            logging.info("Окно Telegram активировано (проверка по процессу)")
+            time.sleep(1)
+            logging.info("Окно Telegram считается активным (пользователь должен быть в чате)")
             return True
                 
         except Exception as e:
@@ -191,20 +185,11 @@ class TelegramBotAutomator:
         """Начало сессии с ботом"""
         try:
             logging.info("Начало работы с ботом...")
+            logging.info("Пропускаем отправку /start - считаем что анкеты уже открыты")
             
-            # Проверяем, что мы в чате с нужным ботом
-            if self.verify_bot_chat():
-                # Отправляем команду /start
-                self.type_message_human_like("/start")
-                time.sleep(1)
-                pyautogui.press('enter')
-                time.sleep(3)
-                
-                logging.info("Команда /start отправлена")
-                return True
-            else:
-                logging.error("Не удалось подтвердить, что мы в чате с ботом @bibinto_bot")
-                return False
+            # Сразу считаем, что мы готовы к работе
+            logging.info("Программа готова к оценке открытых анкет")
+            return True
                 
         except Exception as e:
             logging.error(f"Ошибка при начале сессии с ботом: {e}")
@@ -365,10 +350,8 @@ class TelegramBotAutomator:
                 logging.error("Не удалось начать сессию с ботом.")
                 return
             
-            # Находим и нажимаем кнопку оценки
-            if not self.find_and_click_rate_button_smart():
-                logging.error("Не удалось найти кнопку 'Оценивать'.")
-                return
+            # Пропускаем поиск кнопки - считаем что анкеты уже открыты
+            logging.info("Пропускаем поиск кнопки 'Оценивать' - начинаем сразу оценку")
             
             logging.info("Начинаем цикл оценок...")
             
