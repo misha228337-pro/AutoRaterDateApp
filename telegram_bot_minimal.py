@@ -279,6 +279,12 @@ def main():
     try:
         input("\nНажмите Enter для начала работы...")
         
+        print("🔄 Переключаюсь на Telegram через Alt+Tab...")
+        time.sleep(2)
+        pyautogui.hotkey('alt', 'tab')
+        time.sleep(1)
+        print("✅ Переключение выполнено, начинаю работу...")
+        
         automator = TelegramBotAutomator()
         automator.main_automation_loop()
         

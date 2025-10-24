@@ -32,11 +32,6 @@ echo.
 
 pause
 
-echo 🔄 Переключаюсь на Telegram...
-timeout /t 2 >nul
-powershell -command "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('%{TAB}')"
-timeout /t 1 >nul
-
 python telegram_bot_minimal.py
 
 echo.
